@@ -49,5 +49,5 @@ jobs:
       with:
         app-name: 'mm-email-service'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_be3f433bbde34c1794b2f7138e06e15e }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_a316beec08624300b7b545f0a7e42446 }}
         package: '*.jar'

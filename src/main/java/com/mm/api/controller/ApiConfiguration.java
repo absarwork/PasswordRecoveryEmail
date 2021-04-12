@@ -33,6 +33,20 @@ public class ApiConfiguration {
         }
     }
 
+    @PostMapping("/cmsEmailNotification")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseDTO cmsEmailNotification(@RequestHeader(value = "authorization", required = true) String authorization, @RequestBody EmailMessage emailMessage) {
+        try {
+            ResponseDTO response = null;
+            log.info(">>>>> Email Send Process Start at " + new Date());
+            response = emailService.sendPasswordRecoveryEmail(emailMessage, authorization);
+            log.info(">>>>> Email Send Process End at " + new Date());
+            return response;
+        } catch (Exception ex) {
+            return new ResponseDTO(500, null, null, false, ex.getMessage());
+        }
+    }
+
     @GetMapping("/healthCheck")
     @ResponseStatus(HttpStatus.OK)
     public Object healthCheck(){

@@ -1,6 +1,7 @@
 package com.mm.api.controller;
 
 import com.mm.api.bean.ResponseDTO;
+import com.mm.api.emailer.ContentRefreshDTO;
 import com.mm.api.emailer.EmailMessage;
 import com.mm.api.emailer.EmailMessagesFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -35,11 +36,11 @@ public class ApiConfiguration {
 
     @PostMapping("/cmsEmailNotification")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseDTO cmsEmailNotification(@RequestHeader(value = "authorization", required = true) String authorization, @RequestBody EmailMessage emailMessage) {
+    public ResponseDTO cmsEmailNotification(@RequestHeader(value = "authorization", required = true) String authorization, @RequestBody ContentRefreshDTO emailMessage) {
         try {
             ResponseDTO response = null;
             log.info(">>>>> Email Send Process Start at " + new Date());
-            response = emailService.sendPasswordRecoveryEmail(emailMessage, authorization);
+            emailService.sendCmsNotification(emailMessage, authorization);
             log.info(">>>>> Email Send Process End at " + new Date());
             return response;
         } catch (Exception ex) {
